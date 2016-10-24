@@ -63,8 +63,6 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <img src="../../images/dcos-portal/01-boot/10.png"/><br>
 <br><b>Step 15:</b> Once the Boot VM has been fully provisioned it will show up on the Azure dashboard as 'Running'.<br>
 <img src="../../images/dcos-portal/01-boot/11.png"/><br>
-
-<br>
 ## Create Network Security Groups 3
 In oDC/OS machines are assigned to a Virtual Network (VNET) that acts as a sandbox to a collection of similar machines such as masters, private agents and public agents.  Each VNET has a Network Security Group (NSG) that defines the inbound routing rules for what HTTP/TCP traffic is allowed.  In this section we will define the NSGs that will work with our oDC/OS masters, private agents and public agents.  In the next section we will [Create Virtual Networks](#create-virtual-networks).<br>
 <br><b>Step 16:</b> In the Azure Portal open the Resource Group that was created previously.<br>
