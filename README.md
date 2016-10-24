@@ -29,8 +29,6 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <img src="../../images/dcos-portal/01-boot/03.png"/><br>
 <br><b>Step 8:</b> Fill in the 'Create Virtual Machine -> Basics' form as follows:<br>
 <img src="../../images/dcos-portal/01-boot/04.png"/><br>
-
-## Create Network Security Groups
 <ul><li>Name: (your resource group name)-boot</li>
 <li>VM disk type: SSD</li>
 <li>User name: azureuser</li>
@@ -48,6 +46,8 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <li>Subnet: default (e.g. 172.17.0.0/24)</li>
 <li>Public IP address: (new) (your resource group name)-boot-ip</li></ul>
 <br><b>Step 11:</b> Click the 'Public IP address' and configure it to 'Create new' with a Name: 'boot-ip' but update the Assignment to be 'Static'.<br>
+
+## Create Network Security Groups
 <img src="../../images/dcos-portal/01-boot/07.png"/><br>
 <br><b>Step 12:</b> Configure the remaining 'Settings' as follows:<br>
 <img src="../../images/dcos-portal/01-boot/08.png"/><br>
