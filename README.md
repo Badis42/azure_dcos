@@ -57,12 +57,6 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <img src="../../images/dcos-portal/01-boot/07.png"/><br>
 <br><b>Step 12:</b> Configure the remaining 'Settings' as follows:<br>
 <img src="../../images/dcos-portal/01-boot/08.png"/><br>
-<ul><li>Network security group (firewall): (new) (your resource group name)-boot-nsg</li>
-<li>Extensions: No extensions</li>
-<li>High availability: Availity Set None</li>
-<li>Boot diagnostics: Enabled</li>
-<li>Guest OS diagnostics: Disabled</li>
-<li>Diagnostics storage account: (leave default)</li></ul>
 <br><b>Step 13:</b> Click the 'OK' button on 'Settings' and review the 'Summary' verifying that the Validation passed.<br>
 <img src="../../images/dcos-portal/01-boot/09.png"/><br>
 <br><b>Step 14:</b> Press 'OK' on 'Summary' to start provisioning the Boot VM<br>
