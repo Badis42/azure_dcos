@@ -31,14 +31,12 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <img src="../../images/dcos-portal/01-boot/04.png"/><br>
 ## Create Network Security Groups
 
-<ul><li>Name: (your resource group name)-boot</li>
+<ul>
+<li>Name: (your resource group name)-boot</li>
 <li>VM disk type: SSD</li>
 <li>User name: azureuser</li>
 <li>Authentication type: SSH public key</li>
-<li>SSH public key: (copy the contents of your public ssh key)</li>
-<li>Subscription: (your Azure subscription)</li>
-<li>Resource Group: Use existing (select your resource group)</li>
-<li>Location: (select your desired Azure region location)</li></ul>
+</ul>
 ## Create Network Security Groups 2
 <br><b>Step 9:</b> 'Choose a size' for your boot VM image.  A DS2_V2 Standard image is sufficient for the boot VM.<br>
 <img src="../../images/dcos-portal/01-boot/05.png"/><br>
