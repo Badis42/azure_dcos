@@ -1,13 +1,7 @@
 # Provision Azure resources using the Azure Portal
 This option uses the Azure Portal to individually establish the raw resources needed as a pre-requisite to run the DC/OS installer. Step-by-step instructions for the following topics are included:<br>
 
-[Create an Azure Resource Group](#create-an-azure-resource-group)<br>
-[Create a Boot VM](#create-a-boot-vm)<br>
-[Create Network Security Groups](#create-network-security-groups)<br>
-[Create Virtual Networks](#create-virtual-networks)<br>
-[Create Master VMs](#create-master-vms)<br>
-[Create Private Agent VMs](#create-private-agent-vms)<br>
-[Create Public Agent VMs](#create-public-agent-vms)<br>
+
 
 <br>
 
