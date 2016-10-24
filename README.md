@@ -134,7 +134,6 @@ During the step to [Create a Boot VM](#create-a-boot-vm) at step 10 when we conf
 <li>Route table: None</li></ul>
 Verify that in the VNET a new subnet shows in the listing for 'agent-public-subnet'.<br>
 <img src="../../images/dcos-portal/03-virtualnetwork/06.png"/><br>
-
 <br>
 ## Create Availability Sets
 You'll need to create Availability Sets for Load Balancers for the Masters and Public Agents.<br>
@@ -145,7 +144,6 @@ Click on Availability Set and click 'Create'<br>
 </ul>
 Click Create<br>
 Repease and create another Availabilty for Public Agents.  (e.g. Name: (your resource group name)-agentpublic-as)<br>
-
 <br>
 ## Create Master VMs
 In oDC/OS masters have the responsibility of keeping the configuration of the cluster consistent and scheduling work to be allocated on private and public agents.  To ensure consistency of the configuration it is required to have at least three nodes participating as masters to form a quorum.  In this section we will establish the raw resources needed for the masters.<br>
