@@ -20,7 +20,6 @@ An Azure Resource Group is a logical place where resources that are common to a 
 
 ## Create a Boot VM
 
-## Create Network Security Groups
 A Boot VM is needed when installing o/eDC/OS manually as we will do later on in this deploment option.<br>
 <br><b>Step 5:</b> Open up the resource group that was just created and notice that it has 'No resources to display'.  Click the 'Add' button on the resource group to add a New Item.<br>
 <img src="../../images/dcos-portal/01-boot/01.png"/><br>
@@ -30,6 +29,8 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <img src="../../images/dcos-portal/01-boot/03.png"/><br>
 <br><b>Step 8:</b> Fill in the 'Create Virtual Machine -> Basics' form as follows:<br>
 <img src="../../images/dcos-portal/01-boot/04.png"/><br>
+
+## Create Network Security Groups
 <ul><li>Name: (your resource group name)-boot</li>
 <li>VM disk type: SSD</li>
 <li>User name: azureuser</li>
