@@ -10,6 +10,7 @@ This option uses the Azure Portal to individually establish the raw resources ne
 [Create Public Agent VMs](#create-public-agent-vms)<br>
 
 <br>
+
 ## Create an Azure Resource Group
 An Azure Resource Group is a logical place where resources that are common to a purpose can be organized.  We will establish a new resource group so all the resources we provision for running an o/eDC/OS environment can be logically grouped together.<br>
 <br><b>Step 1:</b> Login to the Azure Portal using the Azure subscription you wish to provision resources to: <a href="https://portal.azure.com">https://portal.azure.com</a><br>
@@ -22,6 +23,7 @@ An Azure Resource Group is a logical place where resources that are common to a 
 <img src="../../images/dcos-portal/00-resourcegroup/04.png"/><br>
 
 <br>
+
 ## Create a Boot VM
 A Boot VM is needed when installing o/eDC/OS manually as we will do later on in this deploment option.<br>
 <br><b>Step 5:</b> Open up the resource group that was just created and notice that it has 'No resources to display'.  Click the 'Add' button on the resource group to add a New Item.<br>
@@ -66,6 +68,7 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <img src="../../images/dcos-portal/01-boot/11.png"/><br>
 
 <br>
+
 ## Create Network Security Groups
 In oDC/OS machines are assigned to a Virtual Network (VNET) that acts as a sandbox to a collection of similar machines such as masters, private agents and public agents.  Each VNET has a Network Security Group (NSG) that defines the inbound routing rules for what HTTP/TCP traffic is allowed.  In this section we will define the NSGs that will work with our oDC/OS masters, private agents and public agents.  In the next section we will [Create Virtual Networks](#create-virtual-networks).<br>
 <br><b>Step 16:</b> In the Azure Portal open the Resource Group that was created previously.<br>
@@ -111,6 +114,7 @@ In oDC/OS machines are assigned to a Virtual Network (VNET) that acts as a sandb
 <img src="../../images/dcos-portal/02-networksecuritygroup/11.png"/><br>
 
 <br>
+
 ## Create Virtual Networks
 During the step to [Create a Boot VM](#create-a-boot-vm) at step 10 when we configure the VM settings one of the configuration options was 'Network' and within that was a property for 'Virtual Network' (VNET).  Each VM instance in oDC/OS belongs to a VNET and when we created the Boot VM we specific to establish a '(new) (your resource group name)-vnet'.  oDC/OS runs applications/micro-services as containers and each container is assigned a unique IP.  In order for this to be work properly we will establish three distinct subnets within our VNET for the masters, private agents and public agents.<br>
 <br><b>Step 27:</b> In the Azure Portal open the Resource Group and click on the (your resource group name)-vnet item in the listing.<br>
@@ -135,6 +139,7 @@ During the step to [Create a Boot VM](#create-a-boot-vm) at step 10 when we conf
 Verify that in the VNET a new subnet shows in the listing for 'agent-public-subnet'.<br>
 <img src="../../images/dcos-portal/03-virtualnetwork/06.png"/><br>
 <br>
+
 ## Create Availability Sets
 You'll need to create Availability Sets for Load Balancers for the Masters and Public Agents.<br>
 <br><b>Step 33:</b> Click Add from Resource Group. Search for Availability Set.<br>
@@ -145,6 +150,7 @@ Click on Availability Set and click 'Create'<br>
 Click Create<br>
 Repease and create another Availabilty for Public Agents.  (e.g. Name: (your resource group name)-agentpublic-as)<br>
 <br>
+
 ## Create Master VMs
 In oDC/OS masters have the responsibility of keeping the configuration of the cluster consistent and scheduling work to be allocated on private and public agents.  To ensure consistency of the configuration it is required to have at least three nodes participating as masters to form a quorum.  In this section we will establish the raw resources needed for the masters.<br>
 <br><b>Step 34:</b> In the Azure Portal open your resource group and click the 'Add' button to add a master VM.<br>
@@ -192,6 +198,7 @@ In oDC/OS masters have the responsibility of keeping the configuration of the cl
 <img src="../../images/dcos-portal/04-masters/12.png"/><br>
 
 <br>
+
 ## Create Private Agent VMs
 In oDC/OS private agents are the worker nodes that run tasks.  Private nodes are not accessable outside of the oDC/OS cluster and are scheduled/allocated work only by the master nodes when new tasks are requested.  The number of private agnent nodes is entirely dependent on the performance and scalability needs of the oDC/OS cluster.  In this section we will establish the raw resources needed for the private agents.<br>
 <br><b>Step 46:</b> In the Azure Portal open your resource group and click the 'Add' button to add a private agent VM.<br>
@@ -240,6 +247,7 @@ In oDC/OS private agents are the worker nodes that run tasks.  Private nodes are
 <img src="../../images/dcos-portal/05-agentprivate/13.png"/><br>
 
 <br>
+
 ## Create Public Agent VMs
 In oDC/OS public agents are worker nodes that run tasks that need to have public accessability outside of the oDC/OS cluster.  Public nodes are scheduled/allocated work only by the master nodes when new public tasks are requested.  The number of public agnent nodes is typically at least the number of master nodes for consistency and reliability.  Public agents can run any type of task but are typically only utilized for lightweight things such as software load balancers/proxies.  In this section we will establish the raw resources needed for the public agents.<br>
 <br><b>Step 59:</b> In the Azure Portal open your resource group and click the 'Add' button to add a public agent VM.<br>
@@ -289,6 +297,7 @@ In oDC/OS public agents are worker nodes that run tasks that need to have public
 
 # Does this work
 <br>
+
 ## Create Load Balancer
 The Load Balancers can spread load accross a set of servers (e.g. public agents).
 <br><b>Step 72:</b> From Resrouce Group Click Add. Search for Load Blanacer. Click Create <br>
