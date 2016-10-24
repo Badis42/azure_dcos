@@ -36,6 +36,8 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <li>VM disk type: SSD</li>
 <li>User name: azureuser</li>
 <li>Authentication type: SSH public key</li>
+<li>SSH public key: (copy the contents of your public ssh key)</li>
+<li>Subscription: (your Azure subscription)</li>
 </ul>
 ## Create Network Security Groups 2
 <br><b>Step 9:</b> 'Choose a size' for your boot VM image.  A DS2_V2 Standard image is sufficient for the boot VM.<br>
