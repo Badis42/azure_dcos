@@ -41,13 +41,14 @@ A Boot VM is needed when installing o/eDC/OS manually as we will do later on in 
 <img src="../../images/dcos-portal/01-boot/05.png"/><br>
 <br><b>Step 10:</b> Configure the first few 'Settings' as follows:<br>
 <img src="../../images/dcos-portal/01-boot/06.png"/><br>
+## Create Network Security Groups
 <ul><li>Storage account: (leave default)</li>
 <li>Virtual network: (new) (your resource group name)-vnet</li>
 <li>Subnet: default (e.g. 172.17.0.0/24)</li>
 <li>Public IP address: (new) (your resource group name)-boot-ip</li></ul>
 <br><b>Step 11:</b> Click the 'Public IP address' and configure it to 'Create new' with a Name: 'boot-ip' but update the Assignment to be 'Static'.<br>
 
-## Create Network Security Groups
+
 <img src="../../images/dcos-portal/01-boot/07.png"/><br>
 <br><b>Step 12:</b> Configure the remaining 'Settings' as follows:<br>
 <img src="../../images/dcos-portal/01-boot/08.png"/><br>
