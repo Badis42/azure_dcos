@@ -109,6 +109,8 @@ check_time: 'false'
 dns_search: $search
 master_list:
 - $m1ip
+- $m2ip
+- $m3ip
 resolvers:
 - $ns
 superuser_password_hash: $pw
