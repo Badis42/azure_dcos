@@ -87,10 +87,14 @@ search=$(cat /etc/resolv.conf | grep search | cut -d ' ' -f2)
 ns=$(cat /etc/resolv.conf | grep nameserver | cut -d ' ' -f2)
 
 m1ip=$(host m1 | cut -d ' ' -f4)
+m2ip=$(host m2 | cut -d ' ' -f4)
+m3ip=$(host m3 | cut -d ' ' -f4)
 
 echo 'search: ' + $search
 echo 'nameserver: ' + $ns
 echo 'm1ip: ' + $m1ip
+echo 'm2ip: ' + $m2ip
+echo 'm3ip: ' + $m3ip
 
 # create the config.yaml
 
@@ -132,10 +136,18 @@ mv overlay.conf genconf/serve/
 docker run -d -p 80:80 -v $PWD/genconf/serve:/usr/share/nginx/html:ro nginx
  
 ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@m1 "sudo curl -O boot/install.sh;sudo bash install.sh master"
+ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@m2 "sudo curl -O boot/install.sh;sudo bash install.sh master"
+ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@m3 "sudo curl -O boot/install.sh;sudo bash install.sh master"
 
 ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@a1 "sudo curl -O boot/install.sh;sudo bash install.sh slave"
 ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@a2 "sudo curl -O boot/install.sh;sudo bash install.sh slave"
 ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@a3 "sudo curl -O boot/install.sh;sudo bash install.sh slave"
+ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@a4 "sudo curl -O boot/install.sh;sudo bash install.sh slave"
+ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@a5 "sudo curl -O boot/install.sh;sudo bash install.sh slave"
+ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@a6 "sudo curl -O boot/install.sh;sudo bash install.sh slave"
+ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@a7 "sudo curl -O boot/install.sh;sudo bash install.sh slave"
 
 ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@p1 "sudo curl -O boot/install.sh;sudo bash install.sh slave_public"   
+ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@p2 "sudo curl -O boot/install.sh;sudo bash install.sh slave_public"   
+ssh -t -o "StrictHostKeyChecking no" -i azureuser2 azureuser@p3 "sudo curl -O boot/install.sh;sudo bash install.sh slave_public"   
 
