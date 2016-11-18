@@ -15,7 +15,7 @@ $ ssh-keygen
 Creates two files (azureuser and azureuser.pub)
 <br/>
 <br/>
-<img src="../images/readme/000.png"/><br>
+<img src="images/readme/000.png"/><br>
 
 ## Goto Azure Portal
 <img src="../../images/readme/001.png"/><br>
