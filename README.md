@@ -15,20 +15,20 @@ $ ssh-keygen
 Creates two files (azureuser and azureuser.pub)
 <br/>
 <br/>
-<img src="../../images/azure-arm2/000.png"/><br>
+<img src="../../images/readme/000.png"/><br>
 
 ## Goto Azure Portal
-<img src="../../images/azure-arm2/001.png"/><br>
+<img src="../../images/readme/001.png"/><br>
 
 Click More Services and Search for Templates
-<img src="../../images/azure-arm2/002.png"/><br>
+<img src="../../images/readme/002.png"/><br>
 Select Templates
 
 ## Select a Template (e.g. trinity_dev)
 
 This will create 1 master, 5 agents, and 1 public agent
 
-<img src="../../images/azure-arm2/003.png"/><br>
+<img src="../../images/readme/003.png"/><br>
 
 Click Deploy
 
@@ -43,8 +43,8 @@ Enter Name: (e.g. esri50)
 Click OK 
 <br/>
 <br/>
-<img src="../../images/azure-arm2/004.png"/><br>
+<img src="../../images/readme/004.png"/><br>
 
 ## Click Legal terms
-<img src="../../images/azure-arm2/005.png"/><br>
+<img src="../../images/readme/005.png"/><br>
 Click Purchase
