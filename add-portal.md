@@ -95,17 +95,23 @@ While this is uploading you can install prerequisites.
 
 Login to the portal server
 
+<pre>
 $ ssh -i azureuser azureuser@104.45.236.85
+</pre>
 
 Switch user to root
 
+<pre>
 $ sudo su -
+</pre>
 
 Set hostname
 
+<pre>
 # hostnamectl set-hostname esri54-portal.westus.cloudapp.azure.com
 
 # echo "$(hostname -I) $(hostname)" >> /etc/hosts
+</pre>
 
 Install Software
 
