@@ -7,22 +7,21 @@ Assumes you already have created a DCOS cluster.
 
 <img src="images/add-portal/001.png">
 
-
 Click Add
 
-002.png
+<img src="images/add-portal/003.png">
 
 Search for CentOS 7.2
 
-003.png
+<img src="images/add-portal/003.png">
 
 Select CentOS-based 7.2 OpenLogic
 
-004.png
+<img src="images/add-portal/004.png">
 
 Select Create
 
-005.png
+<img src="images/add-portal/005.png">
 
 Enter Values
 - Name: portal
@@ -31,11 +30,11 @@ Enter Values
 
 Click OK
 
-006.png
+<img src="images/add-portal/006.png">
 
 Select a size (e.g. DS2_V2); Click Select
 
-007.png
+<img src="images/add-portal/007.png">
 
 Enter Values
 - Storage: esri54  (The one used for all the other servers)
@@ -45,25 +44,25 @@ Defaults will create a new Public IP, NSG.
 
 Click OK
 
-008.png
+<img src="images/add-portal/008.png">
 
 Click OK
 
 It will take a couple of minutes for the new server to be created.  You'll see a message when it's done.
 
-009.png
+<img src="images/add-portal/009.png">
 
 From the Resource Group search for portal
 
-010.png
+<img src="images/add-portal/010.png">
 
 Click on portal-ip
 
-011.png
+<img src="images/add-portal/011.png">
 
 Click on Configuration
 
-012.png
+<img src="images/add-portal/012.png">
 
 Set a DNS name for the public IP
 
@@ -73,11 +72,11 @@ The full DNS entry will be: esri54-portal.westus.cloudapp.azure.com
 
 Click Save
 
-013.png
+<img src="images/add-portal/013.png">
 
 Under portal-nsg add Inbound security rules to allow http, https, and 7443.
 
-014.png
+<img src="images/add-portal/014.png">
 
 
 ## Upload Installation Media
@@ -161,11 +160,11 @@ Navigate in browser to https://esri54-portal.westus.cloudapp.azure.com:7443/arcg
 
 Proceed past security warning about self-signed certificate.
 
-015.png
+<img src="images/add-portal/015.png">
 
 Click Create New Portal
 
-016.png
+<img src="images/add-portal/016.png">
 
 Fill in questions. 
 
@@ -173,11 +172,11 @@ Click Create
 
 This can take a minute or two.
 
-017.png
+<img src="images/add-portal/017.png">
 
 Click OK
 
-018.png
+<img src="images/add-portal/018.png">
 
 Now we'll install Tomcat and Web Adaptor.
 
@@ -229,7 +228,7 @@ https://esri54-portal.westus.cloudapp.azure.com/portal/home
 
 After you login you show see the Home page.
 
-019.png
+<img src="images/add-portal/019.png">
 
 
 ## Now you have Portal running on a server within the DCOS cluster.
