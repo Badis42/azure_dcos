@@ -1,49 +1,50 @@
-# Create a Template using the Python Script
+# Create DC/OS Cluster From Template 
 
-<a href="arm-template-generator.py">Python Script</a>
+The procedure assumes you already <a href="create-templates.md">Created the Template</a>
 
-# Add Azure Portal 
+## You'll need a SSH Key Pair
+If you don't have one; here is the process to create one.
 
-Add to Azure using "Templates"
-
-Give the Template a Name and Description.
-
-Cut and past the json from the file created by Python Script.
-
-
-
-# Deploy the Template
-
-From Azure click Deploy.
-
-Leave the ADMIN_PASSWORD to the default long randome value or enter your own value.  This is not used but is required for connecting to the server.
-
-Specify the RESOURCE_GROUP. I give this the same name as the new Resource Group (e.g. esri64).
-
-Enter the username.  The script was created wi
-
-
-
-Under the Review Legal Terms. Click "Purchase"
-
-Click click "Create"
-
-# Connect to the boot server
-
-Look up the boot public id (e.g. esri60_boot).
-
-Then connect using ssh
-
+This can be done from command line on Linux, Mac, or MobaXterm (Windows).
 <pre>
-$ ssh -i az az@40.112.208.40
+$ ssh-keygen
 </pre>
+- Change the path to the key (e.g. /home/david/azureuser)
+- Leave passphrase blank.
 
-# Download the installer
+Creates two files (azureuser and azureuser.pub)
+<br/>
+<br/>
+<img src="../../images/azure-arm2/000.png"/><br>
 
-Sudo to root and run curl command.
+## Goto Azure Portal
+<img src="../../images/azure-arm2/001.png"/><br>
 
-<pre>
-$ sudo su -
-# curl -o install_boot.sh 
+Click More Services and Search for Templates
+<img src="../../images/azure-arm2/002.png"/><br>
+Select Templates
 
-</pre>
+## Select a Template (e.g. trinity_dev)
+
+This will create 1 master, 5 agents, and 1 public agent
+
+<img src="../../images/azure-arm2/003.png"/><br>
+
+Click Deploy
+
+## Enter Resource Group
+
+Enter Name: (e.g. esri50)
+
+## Under Parameters
+- Enter Username (e.g. azureuser)
+- Copy and Paste Public Key (starts with ssh-rsa).
+
+Click OK 
+<br/>
+<br/>
+<img src="../../images/azure-arm2/004.png"/><br>
+
+## Click Legal terms
+<img src="../../images/azure-arm2/005.png"/><br>
+Click Purchase
