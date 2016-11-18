@@ -5,7 +5,7 @@ Assumes you already have created a DCOS cluster.
 
 ## Add a new server to the Resource Group
 
-<img href="images/add-portal/001.png">
+<img src="images/add-portal/001.png">
 
 
 Click Add
