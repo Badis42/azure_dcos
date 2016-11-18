@@ -236,8 +236,41 @@ After you login you show see the Home page.
 
 <img src="images/add-portal/019.png">
 
+## Configure services
 
-## Now you have Portal running on a server within the DCOS cluster.
+You'll need to configure services as root.
+
+<pre>
+# cp /home/arcgis/arcgis/portal/framework/etc/arcgisportal.service /etc/systemd/system
+# systemctl enable arcgisportal
+
+# tomcat8_service="Description=Tomcat8
+After=network.target
+
+[Service]
+Type=forking
+User=arcgis
+Group=arcgis
+
+ExecStart=/home/arcgis/tomcat8/bin/startup.sh
+ExecStop=/home/arcgis/tomcat8/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target"
+
+# echo "$tomcat8_service" > /etc/systemd/system/tomcat8.service
+
+# systemctl enable tomcat8.service
+
+# reboot
+
+</pre>
+
+After reboot verify you can still access portal in a browser.  Portal takes a couple of minutes to start.
+
+
+
+## Done!
 
 
 
