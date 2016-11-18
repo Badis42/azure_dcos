@@ -18,7 +18,7 @@ Creates two files (azureuser and azureuser.pub)
 <img src="images/readme/000.png"/><br>
 
 ## Goto Azure Portal
-<img src="../../images/readme/001.png"/><br>
+<img src="images/readme/001.png"/><br>
 
 Click More Services and Search for Templates
 <img src="../../images/readme/002.png"/><br>
@@ -28,7 +28,7 @@ Select Templates
 
 This will create 1 master, 5 agents, and 1 public agent
 
-<img src="../../images/readme/003.png"/><br>
+<img src="images/readme/003.png"/><br>
 
 Click Deploy
 
@@ -43,26 +43,26 @@ Enter Name: (e.g. esri50)
 Click OK 
 <br/>
 <br/>
-<img src="../../images/readme/004.png"/><br>
+<img src="images/readme/004.png"/><br>
 
 ## Click Legal terms
-<img src="../../images/readme/005.png"/><br>
+<img src="images/readme/005.png"/><br>
 Click Purchase
 
 ## Click Create
 You can see Deployment started under messages.
-<img src="../../images/readme/006.png"/><br>
+<img src="images/readme/006.png"/><br>
 
 
 ## This will take a about 5 – 10 minutes
-<img src="../../images/readme/007.png"/><br>
+<img src="images/readme/007.png"/><br>
 
 ## From Portal Navigate to the Public IP for the boot server
-<img src="../../images/readme/008.png"/><br>
+<img src="images/readme/008.png"/><br>
 
 
 ## Copy install_dcos.sh and Private Key to Boot
-The <a href="../../azure/dcos/install_dcos.sh"> install_dcos.sh </a> is a Bash Script from GitHub.
+The <a href="azure/dcos/install_dcos.sh"> install_dcos.sh </a> is a Bash Script from GitHub.
 
 From your local workstation.
 
@@ -107,7 +107,7 @@ The DC/OS installs in about 4-5 minutes.
 The last line output is “DCOS is Ready”
 
 Look up one of the Master Public IP in Azure Portal
-<img src="../../images/readme/009.png"/><br>
+<img src="images/readme/009.png"/><br>
 
 From your workstation create a Tunnel to DC/OS.
 
@@ -116,10 +116,10 @@ $ ssh -i azureuser -L 9001:leader.mesos:80 azureuser@40.78.59.166
 </pre>
 
 From a browser connect to DCOS (http://localhost:9001)
-<img src="../../images/readme/010.png"/><br>
+<img src="images/readme/010.png"/><br>
 
 # Marathon and Mesos are also available
-<img src="../../images/readme/011.png"/><br>
+<img src="images/readme/011.png"/><br>
 
 # Troubleshooting
 If something goes wrong review the log files in the installation folder.
