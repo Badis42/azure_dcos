@@ -1,8 +1,9 @@
-# Build a Resource Group 
+# Install DCOS on Disconnected
 
-Setup to test disconnected install. 
+Install DCOS on Servers without Internet connection. Instructions are for setting up Azure cluster as a test envrionment.
 
-I used the "dev" template.
+Created a using "Dev" Template.
+
 <pre>
 Boot Server (boot)
 Masters (m1)
