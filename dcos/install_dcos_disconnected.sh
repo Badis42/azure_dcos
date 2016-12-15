@@ -61,7 +61,6 @@ case "$CLUSTERSIZE" in
         reset)
                 echo "reset"
                 rm -f *.log
-                rm -f docker.repo
                 rm -f overlay.conf
                 rm -f override.conf
                 rm -f install.sh
@@ -92,15 +91,6 @@ echo "Start Boot Setup"
 echo "Boot Setup should take about 2 minutes. If it takes longer than 10 minutes then use Ctrl-C to exit this Script and review the log files (e.g. m1.log)"
 st=$(date +%s)
 
-# Create docker.repo
-docker_repo="[dockerrepo]
-name=Docker Repository
-baseurl=https://yum.dockerproject.org/repo/main/centos/\$releasever/
-enabled=1
-gpgcheck=1
-gpgkey=https://yum.dockerproject.org/gpg"
-
-echo "$docker_repo" > docker.repo
 
 # Create overlay.conf
 overlay="overlay"
@@ -117,25 +107,25 @@ echo "$override" > override.conf
 # Create install.bat
 install="#!/bin/bash
 
-yum -y install ipset
-
 mkdir /tmp/dcos
 cd /tmp/dcos
 curl -O boot/overlay.conf
 curl -O boot/override.conf
-curl -O boot/docker.repo
 curl -O boot/dcos_install.sh
+curl -O boot/docker-engine-1.12.4-1.el7.centos.x86_64.rpm
+curl -O boot/docker-engine-selinux-1.12.4-1.el7.centos.noarch.rpm
 
 groupadd nogroup
 
 cp /tmp/dcos/overlay.conf /etc/modules-load.d/
-cp /tmp/dcos/docker.repo /etc/yum.repos.d/
 
 mkdir /etc/systemd/system/docker.service.d
 cp /tmp/dcos/override.conf /etc/systemd/system/docker.service.d/
 
-yum -y install docker-engine
+rpm -Uvh /tmp/dcos/docker-engine-selinux-1.12.4-1.el7.centos.noarch.rpm 
+rpm -Uvh /tmp/dcos/docker-engine-1.12.4-1.el7.centos.x86_64.rpm
 
+systemctl daemon-reload
 systemctl start docker
 systemctl enable docker
 
@@ -155,7 +145,6 @@ echo "$install" > install.sh
 # Copy files
 
 cp overlay.conf /etc/modules-load.d/
-cp docker.repo /etc/yum.repos.d/
 
 mkdir /etc/systemd/system/docker.service.d
 
@@ -163,16 +152,21 @@ cp override.conf /etc/systemd/system/docker.service.d/
 
 boot_log="boot.log"
 
-yum install -y docker-engine > $boot_log 2>&1
+# Assumes you downloaded rpm's and they arein the same directory as script
+rpm -Uvh docker-engine-selinux-1.12.4-1.el7.centos.noarch.rpm > $boot_log 2>&1
+rpm -Uvh docker-engine-1.12.4-1.el7.centos.x86_64.rpm >> $boot_log 2>&1
+
+systemctl daemon-reload >> $boot_log 2>&1
 systemctl start docker >> $boot_log 2>&1
 systemctl enable docker >> $boot_log 2>&1
-systemctl daemon-reload >> $boot_log 2>&1
 
 setenforce permissive >> $boot_log 2>&1
 
-curl -O --silent $DCOS_URL >> $boot_log 2>&1
+# Assumes DCOS has already been downloaded and is in same directory as script
+#curl -O --silent $DCOS_URL >> $boot_log 2>&1
 
 dcos_cmd=$(basename $DCOS_URL)
+echo $dcos_cmd
 
 bash $dcos_cmd --help >> $boot_log 2>&1
 
@@ -229,12 +223,13 @@ echo "$ip_detect" > genconf/ip-detect
 
 bash $dcos_cmd >> $boot_log 2>&1
 
-# Copy files to server folder
+# Copy files to serve folder 
 
-mv docker.repo genconf/serve/
 mv install.sh genconf/serve/
 mv override.conf genconf/serve/
 mv overlay.conf genconf/serve/
+cp docker-engine-selinux-1.12.4-1.el7.centos.noarch.rpm genconf/serve/
+cp docker-engine-1.12.4-1.el7.centos.x86_64.rpm genconf/serve/
 
 RESULT=$?
 if [ $RESULT -ne 0 ]; then
