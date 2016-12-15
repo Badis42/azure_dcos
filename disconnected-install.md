@@ -1,4 +1,4 @@
-# Install DCOS on Disconnected
+# Install DCOS on Disconnected Servers (no internet)
 
 Install DCOS on Servers without Internet connection. Instructions are for setting up Azure cluster as a test envrionment.
 
