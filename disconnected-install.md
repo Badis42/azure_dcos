@@ -74,3 +74,126 @@ $ sudo su -
 
 </pre>
 
+
+Used these instructions https://docs.mesosphere.com/1.8/administration/installing/deploying-a-local-dcos-universe/ to create local-universe.tar.gz.
+
+Note: Default only includes four packages. Not the ones we need.
+
+I used: --include="marathon-lb,kafka,chronos"
+
+Compile took a few minutes.
+<pre>
+$ scp -i azureuser local-universe.tar.gz azureuser@23.99.82.81:.
+</pre>
+
+Took a few minutes to move.  It was 527MB.
+
+<pre>
+$ ssh -i azureuser azureuser@23.99.82.81
+$ scp -i azureuser local-universe.tar.gz m1:.
+
+$ ssh -i azureuser m1
+$ sudo su - 
+
+# docker load -i /home/azureuser/local-universe.tar.gz
+
+
+# vi /etc/systemd/system/dcos-local-universe-http.service
+[Unit]
+Description=DCOS: Serve the (http) local universe
+After=docker.service
+
+[Service]
+Restart=always
+StartLimitInterval=0
+RestartSec=15
+TimeoutStartSec=120
+TimeoutStopSec=15
+ExecStart=/usr/bin/docker run --rm --name %n -p 8082:80 mesosphere/universe nginx -g "daemon off;"
+:wq
+
+# vi /etc/systemd/system/dcos-local-universe-registry.service
+[Unit]
+Description=DCOS: Serve the (http) local universe
+After=docker.service
+
+[Service]
+Restart=always
+StartLimitInterval=0
+RestartSec=15
+TimeoutStartSec=120
+TimeoutStopSec=15
+ExecStart=/usr/bin/docker run --rm --name %n -p 5000:5000 -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key mesosphere/universe registry serve /etc/docker/registry/config.yml
+:wq
+
+
+# systemctl daemon-reload
+
+
+# systemctl start dcos-local-universe-http
+# systemctl start dcos-local-universe-registry
+
+
+# systemctl enable dcos-local-universe-http
+# systemctl enable dcos-local-universe-registry
+</pre>
+
+
+### From WebUI
+
+Delete the Default Repositry
+
+<pre>
+Universe
+https://universe.mesosphere.com/repo
+0
+</pre>
+
+<pre>
+Local Universe
+http://master.mesos:8082/repo
+0
+
+</pre>
+On each private and public agent
+
+<pre>
+# mkdir -p /etc/docker/certs.d/master.mesos:5000
+# curl -o /etc/docker/certs.d/master.mesos:5000/ca.crt http://master.mesos:8082/certs/domain.crt
+# systemctl restart docker
+</pre>
+
+
+
+## Setup Private Docker Repo
+
+http://davidssysadminnotes.blogspot.com/2016/04/create-private-docker-registry.html
+
+You'll need to modify override.conf on all servers
+<pre>
+# vi /etc/systemd/system/docker.service.d/override.conf
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd --storage-driver=overlay --insecure-registry boot:5000
+
+Append --insecure-registry option.
+
+# systemctl daemon-reload
+# systemctl restart docker
+
+For offline you'd need to save the images; burn to DVD; then load the images.
+
+For testing I just downloaded directly onto "boot" server.
+
+# docker login
+# docker pull esritrinity/realtime-taskmanager:0.8.6
+# docker tag esritrinity/realtime-taskmanager:0.8.6 boot:5000/esritrinity/realtime-taskmanager:0.8.6
+# docker push boot:5000/realtime-taskmanager:0.8.6 
+
+# docker pull esritrinity/realtime-monitoring:0.8.6
+# docker tag esritrinity/realtime-monitoring:0.8.6 boot:5000/esritrinity/realtime-monitoring:0.8.6
+# docker push boot:5000/realtime-monitoring:0.8.6 
+</pre>
+
+
+
