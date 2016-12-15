@@ -23,7 +23,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'boot')]", 
+            "name": "[concat(resourceGroup().name, 'boot')]", 
             "apiVersion": "2015-06-15", 
             "comments": "boot", 
             "dependsOn": [
@@ -45,7 +45,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'boot', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'boot', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "boot"
@@ -128,7 +128,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'm1')]", 
+            "name": "[concat(resourceGroup().name, 'm1')]", 
             "apiVersion": "2015-06-15", 
             "comments": "m1", 
             "dependsOn": [
@@ -151,7 +151,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'm1', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'm1', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "m1"
@@ -244,7 +244,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'm2')]", 
+            "name": "[concat(resourceGroup().name, 'm2')]", 
             "apiVersion": "2015-06-15", 
             "comments": "m2", 
             "dependsOn": [
@@ -267,7 +267,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'm2', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'm2', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "m2"
@@ -360,7 +360,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'm3')]", 
+            "name": "[concat(resourceGroup().name, 'm3')]", 
             "apiVersion": "2015-06-15", 
             "comments": "m3", 
             "dependsOn": [
@@ -383,7 +383,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'm3', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'm3', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "m3"
@@ -476,7 +476,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'a1')]", 
+            "name": "[concat(resourceGroup().name, 'a1')]", 
             "apiVersion": "2015-06-15", 
             "comments": "a1", 
             "dependsOn": [
@@ -498,7 +498,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a1', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a1', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "a1"
@@ -564,7 +564,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'a2')]", 
+            "name": "[concat(resourceGroup().name, 'a2')]", 
             "apiVersion": "2015-06-15", 
             "comments": "a2", 
             "dependsOn": [
@@ -586,7 +586,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a2', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a2', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "a2"
@@ -652,7 +652,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'a3')]", 
+            "name": "[concat(resourceGroup().name, 'a3')]", 
             "apiVersion": "2015-06-15", 
             "comments": "a3", 
             "dependsOn": [
@@ -674,7 +674,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a3', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a3', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "a3"
@@ -740,7 +740,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'a4')]", 
+            "name": "[concat(resourceGroup().name, 'a4')]", 
             "apiVersion": "2015-06-15", 
             "comments": "a4", 
             "dependsOn": [
@@ -762,7 +762,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a4', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a4', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "a4"
@@ -828,7 +828,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'a5')]", 
+            "name": "[concat(resourceGroup().name, 'a5')]", 
             "apiVersion": "2015-06-15", 
             "comments": "a5", 
             "dependsOn": [
@@ -850,7 +850,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a5', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a5', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "a5"
@@ -916,7 +916,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'a6')]", 
+            "name": "[concat(resourceGroup().name, 'a6')]", 
             "apiVersion": "2015-06-15", 
             "comments": "a6", 
             "dependsOn": [
@@ -938,7 +938,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a6', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a6', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "a6"
@@ -1004,7 +1004,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'a7')]", 
+            "name": "[concat(resourceGroup().name, 'a7')]", 
             "apiVersion": "2015-06-15", 
             "comments": "a7", 
             "dependsOn": [
@@ -1026,7 +1026,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a7', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'a7', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "a7"
@@ -1092,7 +1092,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'p1')]", 
+            "name": "[concat(resourceGroup().name, 'p1')]", 
             "apiVersion": "2015-06-15", 
             "comments": "p1", 
             "dependsOn": [
@@ -1115,7 +1115,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'p1', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'p1', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "p1"
@@ -1190,7 +1190,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'p2')]", 
+            "name": "[concat(resourceGroup().name, 'p2')]", 
             "apiVersion": "2015-06-15", 
             "comments": "p2", 
             "dependsOn": [
@@ -1213,7 +1213,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'p2', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'p2', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "p2"
@@ -1288,7 +1288,7 @@
             "location": "[resourceGroup().location]"
         }, 
         {
-            "name": "[concat(resourceGroup().name,'_', 'p3')]", 
+            "name": "[concat(resourceGroup().name, 'p3')]", 
             "apiVersion": "2015-06-15", 
             "comments": "p3", 
             "dependsOn": [
@@ -1311,7 +1311,7 @@
                     "osDisk": {
                         "caching": "ReadWrite", 
                         "vhd": {
-                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'p3', '20161103072555.vhd'))]"
+                            "uri": "[concat('https', '://', resourceGroup().name, '.blob.core.windows.net', concat('/vhds/', 'p3', '20161202205228.vhd'))]"
                         }, 
                         "createOption": "FromImage", 
                         "name": "p3"

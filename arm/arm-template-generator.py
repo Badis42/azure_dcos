@@ -63,7 +63,7 @@ def createVM(name, group_name, size):
     
     resource["comments"] = name 
     resource["type"] = "Microsoft.Compute/virtualMachines"
-    resource["name"] = "[concat(resourceGroup().name,'_', '" + name + "')]"
+    resource["name"] = "[concat(resourceGroup().name, '" + name + "')]"
     resource["apiVersion"] = "2015-06-15"
     resource["location"] = "[resourceGroup().location]"
 
@@ -549,15 +549,22 @@ if __name__ == '__main__':
     fout = open(OUT_FOLDER + "/trinity_dev.json","w")
     fout.write(pjson_data)
     fout.close()
-
-    # Create Small1
-    pjson_data = createJsonFile(3,1,3)    
-    fout = open(OUT_FOLDER + "/trinity_small1.json","w")
-    fout.write(pjson_data)
-    fout.close()
        
     # Create Small
     pjson_data = createJsonFile(3,7,3)    
     fout = open(OUT_FOLDER + "/trinity_small.json","w")
     fout.write(pjson_data)
     fout.close()
+
+    # Create Medium
+    pjson_data = createJsonFile(3,47,3)    
+    fout = open(OUT_FOLDER + "/trinity_medium.json","w")
+    fout.write(pjson_data)
+    fout.close()
+
+    # Create Large
+    pjson_data = createJsonFile(3,97,3)    
+    fout = open(OUT_FOLDER + "/trinity_large.json","w")
+    fout.write(pjson_data)
+    fout.close()
+
