@@ -77,7 +77,7 @@ $ sudo su -
 
 Used these instructions https://docs.mesosphere.com/1.8/administration/installing/deploying-a-local-dcos-universe/ to create local-universe.tar.gz.
 
-Note: Default only includes four packages. Not the ones we need.
+Note: Default only includes four packages. Not the ones we need.  Additionally, we need an older version of kafka. In you're clone of the universe remove this folder "universe/repo/packages/K/kafka/34".  This will cause kafka to build using folder 33.
 
 I used: --include="marathon-lb,kafka,chronos"
 
