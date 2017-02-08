@@ -549,6 +549,13 @@ if __name__ == '__main__':
     fout = open(OUT_FOLDER + "/trinity_dev.json","w")
     fout.write(pjson_data)
     fout.close()
+
+    # Create DevLarge
+    pjson_data = createJsonFile(1,10,1)    
+    fout = open(OUT_FOLDER + "/trinity_devlarge.json","w")
+    fout.write(pjson_data)
+    fout.close()
+
        
     # Create Small
     pjson_data = createJsonFile(3,7,3)    

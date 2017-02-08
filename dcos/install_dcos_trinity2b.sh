@@ -10,13 +10,38 @@ ADMIN_PASSWORD=""
 USERNAME=azureuser
 PKIFILE=azureuser
 
-if [ "$#" -ne 1 ];then
-	echo "You must specify a Cluster size (mini,dev,devlarge,small)"
+
+if [ "$#" -ne 3 ];then
+	echo "Usage: $0 <numMasters> <numAgents> <numPublicAgents>"
+	echo "Example: $0 1 3 1"
 	exit 99
 fi
 
 # mini,dev,small
-CLUSTERSIZE=$1
+NUM_MASTERS=$1
+NUM_AGENTS=$2
+NUM_PUBLIC_AGENTS=$3
+
+re='^[0-9]+$'
+
+if ! [[ $NUM_MASTERS =~ $re ]] ; then
+	echo "Usage: $0 <numMasters> <numAgents> <numPublicAgents>"
+	echo "numMasters must be a number"
+	exit 91
+fi
+
+if ! [[ $NUM_AGENTS =~ $re ]] ; then
+	echo "Usage: $0 <numMasters> <numAgents> <numPublicAgents>"
+	echo "numAgents must be a number"
+	exit 92
+fi
+
+if ! [[ $NUM_PUBLIC_AGENTS =~ $re ]] ; then
+	echo "Usage: $0 <numMasters> <numAgents> <numStorageAgents> <numPublicAgents>"
+	echo "numPublicAgents must be a number"
+	exit 93
+fi
+
 
 # If installer fails and you need to rerun.
 # In some cases you can just try again.
@@ -25,68 +50,22 @@ CLUSTERSIZE=$1
 # Stop docker instances  Run "docker ps" if nginx is running then run "docker stop <id>" and then "docker rm <id>"
 # Now run the install script again.
 
-
-# Set Number of Master, Agents, and PublicAgents
-case "$CLUSTERSIZE" in
-	mini)
-                echo "mini"
-                NUM_MASTERS=1
-                NUM_AGENTS=3
-                NUM_PUBLIC_AGENTS=1
-                ;;  
-        dev)
-                echo "dev"
-                NUM_MASTERS=1
-                NUM_AGENTS=5
-                NUM_PUBLIC_AGENTS=1
-                ;;  
-        devlarge)
-                echo "devlarge"
-                NUM_MASTERS=1
-                NUM_AGENTS=10
-                NUM_PUBLIC_AGENTS=1
-                ;;  
-        small)
-                echo "small"
-                NUM_MASTERS=3
-                NUM_AGENTS=7
-                NUM_PUBLIC_AGENTS=3
-                ;;  
-        medium)
-                echo "medium"
-                NUM_MASTERS=3
-                NUM_AGENTS=47
-                NUM_PUBLIC_AGENTS=3
-                ;;  
-        large)
-                echo "large"
-                NUM_MASTERS=3
-                NUM_AGENTS=97
-                NUM_PUBLIC_AGENTS=3
-                ;;  
-        reset)
-                echo "reset"
-                rm -f *.log
-                rm -f docker.repo
-                rm -f overlay.conf
-                rm -f override.conf
-                rm -f install.sh
-                rm -rf genconf
-                rm -f dcos-genconf*.tar
-                rm -f dcos_generate*.sh
-		CONTAINER=$(docker ps | grep nginx | cut -d ' ' -f 1)
-		docker stop $CONTAINER
-		docker rm $CONTAINER
-                echo "You might see an error message about docker; that's ok."
-                exit 0
-                ;;
-        *)  
-                echo "unrecognized CLUSTERSIZE"
-                NUM_MASTERS=0
-                NUM_AGENTS=0
-                NUM_PUBLIC_AGENTS=0
-                exit 2
-esac
+if [ $NUM_MASTERS -eq 0 ]; then
+	echo "reset"
+        rm -f *.log
+        rm -f docker.repo
+        rm -f overlay.conf
+        rm -f override.conf
+        rm -f install.sh
+        rm -rf genconf
+        rm -f dcos-genconf*.tar
+        rm -f dcos_generate*.sh
+	CONTAINER=$(docker ps | grep nginx | cut -d ' ' -f 1)
+	docker stop $CONTAINER
+	docker rm $CONTAINER
+        echo "You might see an error message about docker; that's ok."
+        exit 0
+fi
 
 if [ ! -e $PKIFILE ]; then
 	echo "This PKI file does not exist: " + $PKIFILE
@@ -95,7 +74,7 @@ fi
 
 # Start Time
 echo "Start Boot Setup"
-echo "Boot Setup should take about 2 minutes. If it takes longer than 10 minutes then use Ctrl-C to exit this Script and review the log files (e.g. boot.log)"
+echo "Boot Setup should take about 5 minutes. If it takes longer than 10 minutes then use Ctrl-C to exit this Script and review the log files (e.g. boot.log)"
 st=$(date +%s)
 
 # Create docker.repo
@@ -122,6 +101,34 @@ echo "$override" > override.conf
 
 # Create install.bat
 install="#!/bin/bash
+
+mkdir /var/lib/mesos
+
+if [ \"\$1\" = \"slave\" ]; then
+
+        fdisk /dev/sdc << EOF
+n
+p
+1
+
+
+w
+EOF
+
+        mkfs -t xfs /dev/sdc1
+
+        blkid=\$(blkid | grep sdc1)
+
+        uuid=\$(echo \$blkid | awk -F'\"' '\$0=\$2')
+        echo \$blkid
+        echo \$uuid
+
+        fstabline=\"UUID=\${uuid} /var/lib/mesos    xfs   defaults   0  0\"
+
+        echo \$fstabline >> /etc/fstab
+
+        mount -a
+fi
 
 yum -y install ipset
 

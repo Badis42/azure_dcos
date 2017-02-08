@@ -10,13 +10,45 @@ ADMIN_PASSWORD=""
 USERNAME=azureuser
 PKIFILE=azureuser
 
-if [ "$#" -ne 1 ];then
-	echo "You must specify a Cluster size (mini,dev,devlarge,small)"
+
+if [ "$#" -ne 4 ];then
+	echo "Usage: $0 <numMasters> <numAgents> <numStorageAgents> <numPublicAgents>"
+	echo "Example: $0 1 3 3 1"
 	exit 99
 fi
 
 # mini,dev,small
-CLUSTERSIZE=$1
+NUM_MASTERS=$1
+NUM_AGENTS=$2
+NUM_STORAGE_AGENTS=$3
+NUM_PUBLIC_AGENTS=$4
+
+re='^[0-9]+$'
+
+if ! [[ $NUM_MASTERS =~ $re ]] ; then
+	echo "Usage: $0 <numMasters> <numAgents> <numStorageAgents> <numPublicAgents>"
+	echo "numMasters must be a number"
+	exit 91
+fi
+
+if ! [[ $NUM_AGENTS =~ $re ]] ; then
+	echo "Usage: $0 <numMasters> <numAgents> <numStorageAgents> <numPublicAgents>"
+	echo "numAgents must be a number"
+	exit 92
+fi
+
+if ! [[ $NUM_STORAGE_AGENTS =~ $re ]] ; then
+	echo "Usage: $0 <numMasters> <numAgents> <numStorageAgents> <numPublicAgents>"
+	echo "numStorageAgents must be a number"
+	exit 92
+fi
+
+if ! [[ $NUM_PUBLIC_AGENTS =~ $re ]] ; then
+	echo "Usage: $0 <numMasters> <numAgents> <numStorageAgents> <numPublicAgents>"
+	echo "numPublicAgents must be a number"
+	exit 93
+fi
+
 
 # If installer fails and you need to rerun.
 # In some cases you can just try again.
@@ -25,68 +57,22 @@ CLUSTERSIZE=$1
 # Stop docker instances  Run "docker ps" if nginx is running then run "docker stop <id>" and then "docker rm <id>"
 # Now run the install script again.
 
-
-# Set Number of Master, Agents, and PublicAgents
-case "$CLUSTERSIZE" in
-	mini)
-                echo "mini"
-                NUM_MASTERS=1
-                NUM_AGENTS=3
-                NUM_PUBLIC_AGENTS=1
-                ;;  
-        dev)
-                echo "dev"
-                NUM_MASTERS=1
-                NUM_AGENTS=5
-                NUM_PUBLIC_AGENTS=1
-                ;;  
-        devlarge)
-                echo "devlarge"
-                NUM_MASTERS=1
-                NUM_AGENTS=10
-                NUM_PUBLIC_AGENTS=1
-                ;;  
-        small)
-                echo "small"
-                NUM_MASTERS=3
-                NUM_AGENTS=7
-                NUM_PUBLIC_AGENTS=3
-                ;;  
-        medium)
-                echo "medium"
-                NUM_MASTERS=3
-                NUM_AGENTS=47
-                NUM_PUBLIC_AGENTS=3
-                ;;  
-        large)
-                echo "large"
-                NUM_MASTERS=3
-                NUM_AGENTS=97
-                NUM_PUBLIC_AGENTS=3
-                ;;  
-        reset)
-                echo "reset"
-                rm -f *.log
-                rm -f docker.repo
-                rm -f overlay.conf
-                rm -f override.conf
-                rm -f install.sh
-                rm -rf genconf
-                rm -f dcos-genconf*.tar
-                rm -f dcos_generate*.sh
-		CONTAINER=$(docker ps | grep nginx | cut -d ' ' -f 1)
-		docker stop $CONTAINER
-		docker rm $CONTAINER
-                echo "You might see an error message about docker; that's ok."
-                exit 0
-                ;;
-        *)  
-                echo "unrecognized CLUSTERSIZE"
-                NUM_MASTERS=0
-                NUM_AGENTS=0
-                NUM_PUBLIC_AGENTS=0
-                exit 2
-esac
+if [ $NUM_MASTERS -eq 0 ]; then
+	echo "reset"
+        rm -f *.log
+        rm -f docker.repo
+        rm -f overlay.conf
+        rm -f override.conf
+        rm -f install.sh
+        rm -rf genconf
+        rm -f dcos-genconf*.tar
+        rm -f dcos_generate*.sh
+	CONTAINER=$(docker ps | grep nginx | cut -d ' ' -f 1)
+	docker stop $CONTAINER
+	docker rm $CONTAINER
+        echo "You might see an error message about docker; that's ok."
+        exit 0
+fi
 
 if [ ! -e $PKIFILE ]; then
 	echo "This PKI file does not exist: " + $PKIFILE
@@ -154,7 +140,13 @@ setenforce permissive
 sed -i '$ i vm.max_map_count=262144' /etc/sysctl.conf
 sysctl -w vm.max_map_count=262144
 
-bash dcos_install.sh \$1"
+bash dcos_install.sh \$1
+
+if [ ! -z \"\$2\" ]; then
+	echo MESOS_ATTRIBUTES=AGENTSET:\$2 >> /opt/mesosphere/etc/mesos-slave
+	rm -f /var/lib/mesos/slave/meta/slaves/latest
+	systemctl restart dcos-mesos-slave	
+fi"
 
 echo "$install" > install.sh
 
@@ -272,6 +264,14 @@ for (( i=1; i<=$NUM_AGENTS; i++))
 do
         SERVER="a$i"
         ssh -t -t -o "StrictHostKeyChecking no" -i $PKIFILE $USERNAME@$SERVER "sudo curl -O boot/install.sh;sudo bash install.sh $DCOSTYPE" >$SERVER.log 2>$SERVER.log &
+done
+
+DCOSTYPE=slave
+AGENTSET=SAT
+for (( i=1; i<=$NUM_STORAGE_AGENTS; i++))
+do
+        SERVER="s$i"
+        ssh -t -t -o "StrictHostKeyChecking no" -i $PKIFILE $USERNAME@$SERVER "sudo curl -O boot/install.sh;sudo bash install.sh $DCOSTYPE $AGENTSET" >$SERVER.log 2>$SERVER.log &
 done
 
 DCOSTYPE=slave_public
