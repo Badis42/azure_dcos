@@ -85,7 +85,7 @@ ExecStart=/usr/bin/dockerd --storage-driver=overlay
 </pre>
 
 
-Create "centos" user and add user to wheel group
+### Create and configure "centos" user
 
 <pre>
 # useradd centos
@@ -109,7 +109,7 @@ Add centos user to the wheel group
 # usermod -aG wheel centos
 </pre>
 
-Create a startup script to import the AWS pki 
+### Create a startup script to import the AWS pki 
 
 <pre>
 # vi /usr/local/bin/config_centos_aws_pki.sh
@@ -166,7 +166,14 @@ WantedBy=default.target
 # systemctl enable config_centos_aws_pki.service
 </pre>
 
-Stop the VM and export as OVA.  In my cased named c72.ova.
+#### Create OVA
+Stop the VM 
+<pre>
+# systemctl shutdown
+</pre>
+
+From VirtualBox menu export the VM. 
+
 
 ## Installed and Configured AWS CLI
 
