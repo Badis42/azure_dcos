@@ -1,6 +1,6 @@
 # Create CentOS 7.2 AMI
 
-*WARNING: If you are using a AWS Free Tier you will probably overrun your snapshot allowance and may incur some small charges.*
+*WARNING: If you are using a AWS Free Tier you will probably overrun your snapshot allowance and may incur some charges if you import an AMI.*
 
 ## Create VirtualBox VM
 - Start with minimum install of CentOS
