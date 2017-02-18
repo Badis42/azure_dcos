@@ -8,7 +8,7 @@
 
 *WARNING: Do not do yum update. This will upgrade you to 7.3*
 
-### Install Packages
+Install Packages
 
 <pre>
 $ sudo su -
