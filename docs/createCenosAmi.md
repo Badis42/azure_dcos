@@ -3,8 +3,87 @@
 *WARNING: If you are using a AWS Free Tier you will probably overrun your snapshot allowance and may incur some charges if you import an AMI.*
 
 ## Create VirtualBox VM
-- Start with minimum install of CentOS
+- Start with minimum install of CentOS (Be sure to use CentOS 7.2; 7.3 is not supported)
 - Install other packages needed for [DCOS Advanced Instllation](https://dcos.io/docs/1.8/administration/installing/custom/system-requirements/)
+
+*WARNING: Do not do yum update. This will upgrade you to 7.3*
+
+### Install Packages
+
+<pre>
+$ sudo su -
+# yum install ipset
+# yum install bind-utils
+# yum install bash-completion
+# yum install vim
+# yum install unzip
+</pre>
+
+### Configurations for DCOS
+
+<pre>
+# groupadd nogroup
+
+# vi /etc/sysctl.conf
+</pre>
+
+Add these lines.
+
+<pre>
+vm.max_map_count=262144
+vm.swappiness = 1
+</pre>
+
+The default install of CentOS 7.2 has tuned configured
+
+<pre>
+# systemctl status tuned
+# vi  /usr/lib/tuned/virtual-guest/tuned.conf
+</pre>
+
+Change swappiness in tuned.conf to 1.
+
+### Install Docker
+
+<pre>
+# vi /etc/yum.repos.d/docker.repo
+</pre>
+
+<pre>
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/\$releasever/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+</pre>
+
+<pre>
+# vi /etc/modules-load.d/overlay.conf
+</pre>
+
+<pre>
+overlay
+</pre>
+
+<pre>
+# mkdir /etc/systemd/system/docker.service.d
+# vi /etc/systemd/system/docker.service.d/override.conf
+</pre>
+
+<pre>
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd --storage-driver=overlay
+</pre>
+
+<pre>
+# yum install -y docker-engine
+
+# systemctl start docker
+# systemctl enable docker
+</pre>
+
 
 Create "centos" user and add user to wheel group
 
