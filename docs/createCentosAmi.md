@@ -166,7 +166,7 @@ WantedBy=default.target
 # systemctl enable config_centos_aws_pki.service
 </pre>
 
-#### Create OVA
+### Create OVA
 Stop the VM 
 <pre>
 # systemctl shutdown
